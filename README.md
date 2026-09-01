@@ -37,9 +37,13 @@ Student-Performance-MLOps/
 ├── app/
 │   └── app.py
 │
-└── models/
-    ├── encoders.pkl
-    └── student_model.pkl
+├── models/
+│   ├── encoders.pkl
+│   └── student_model.pkl
+│
+├── requirements.txt
+├── .gitignore
+└── README.md
 
 How to Run
 1. Clone the Repository
