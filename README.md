@@ -1,94 +1,96 @@
-# Student Performance Predictor 
+# Student Performance Predictor
 
-A Machine Learning and MLOps project that predicts whether a student is likely to PASS or FAIL based on academic and demographic information.
+A Python and Streamlit project that estimates whether a student is likely to pass or fail using academic and demographic information.
 
 ## Features
 
-- Student performance prediction
-- Data preprocessing
-- Machine Learning model
-- Streamlit web application
-- Prediction confidence score
-- Score visualization
+- Interactive Streamlit web application
+- Student-details form and subject-score visualization
+- Random Forest classification model
+- Saved model and encoder artifacts
+- Exploratory data analysis and dataset validation scripts
+- Reproducible training settings
 
-## Technologies Used
+## Tech Stack
 
 - Python
 - Pandas
-- Scikit-learn
+- scikit-learn
 - Streamlit
 - Joblib
-- Git & GitHub
 
 ## Project Structure
 
+```text
 Student-Performance-MLOps/
-│
 ├── Data/
 │   └── students.csv
-│
 ├── Src/
 │   ├── eda.py
 │   ├── predict.py
 │   ├── preprocessing.py
 │   ├── test.py
 │   └── train_model.py
-│
 ├── app/
 │   └── app.py
-│
 ├── models/
 │   ├── encoders.pkl
 │   └── student_model.pkl
-│
-├── requirements.txt
 ├── .gitignore
+├── requirements.txt
 └── README.md
+```
 
-How to Run
-1. Clone the Repository
+## Run Locally
+
+```bash
 git clone https://github.com/optimus777prime/Student-Performance-MLOps.git
 cd Student-Performance-MLOps
-2. Install Required Libraries
-pip install pandas scikit-learn streamlit joblib
-3. Run the Application
+python -m venv .venv
+```
+
+Activate the virtual environment, then install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Train or refresh the saved model artifacts:
+
+```bash
+python Src/train_model.py
+```
+
+Run the web application:
+
+```bash
 streamlit run app/app.py
-4. Open the Application
-After running the command, open:
-http://localhost:8501
-5. Use the Predictor
-Enter the student's details and scores, then click Predict.
-The application displays:
-PASS or FAIL prediction
-Prediction confidence
-Math, Reading and Writing scores
-Score visualization
+```
 
-MLOps Workflow
+The app will be available at `http://localhost:8501`.
 
-Data Collection
-      ↓
-Data Preprocessing
-      ↓
-EDA & Feature Analysis
-      ↓
-Model Training
-      ↓
-Model Testing
-      ↓
-Model Serialization
-      ↓
-Streamlit Deployment
-      ↓
-Student Prediction
+## Useful Scripts
 
-Output
-The application predicts whether a student is likely to PASS or FAIL and displays the prediction confidence along with subject score visualization.
+```bash
+python Src/eda.py           # Dataset overview
+python Src/test.py          # Missing-value and duplicate-row checks
+python Src/preprocessing.py # Preview calculated result labels
+python Src/predict.py       # Example command-line prediction
+```
 
-Author
+## Model Notes and Limitation
+
+The current label is defined as **Pass** when the average of math, reading, and writing scores is at least 50. Because these same scores are model inputs, the model is learning a rule derived from its inputs. This is suitable as a learning demonstration, but it is not an early-warning model.
+
+A stronger next version would predict final performance using only information known before the final exam, such as attendance, prior assessments, assignments, and study habits.
+
+## MLOps Workflow
+
+```text
+Data collection → validation and EDA → preprocessing → training
+→ evaluation → model serialization → Streamlit prediction app
+```
+
+## Author
+
 Darshan Hadagali
-
-### After pasting
-Click **Commit changes → Commit changes** ✅
-
-Then your GitHub repository will have a proper **project description + features + technologies + structure + installation + MLOps flow + usage**. 🔥

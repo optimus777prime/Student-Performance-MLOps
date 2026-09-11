@@ -1,10 +1,14 @@
+from pathlib import Path
+
 import pandas as pd
 
-# Load the dataset
-df = pd.read_csv("Data/students.csv.csv")
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+DATA_PATH = PROJECT_ROOT / "Data" / "students.csv"
+
+df = pd.read_csv(DATA_PATH)
 
 print("========== DATASET INFO ==========")
-print(df.info())
+df.info()
 
 print("\n========== STATISTICS ==========")
 print(df.describe())

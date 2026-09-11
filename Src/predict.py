@@ -1,26 +1,32 @@
+from pathlib import Path
+
 import joblib
 import pandas as pd
 
-model=joblib.load('models/student_model.pkl')
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+MODELS_DIR = PROJECT_ROOT / "models"
+
+model = joblib.load(MODELS_DIR / "student_model.pkl")
+encoders = joblib.load(MODELS_DIR / "encoders.pkl")
+
 student = {
-    "gender": 1,
-    "race/ethnicity": 2,
-    "parental level of education": 3,
-    "lunch": 1,
-    "test preparation course": 1,
+    "gender": "female",
+    "race/ethnicity": "group B",
+    "parental level of education": "bachelor's degree",
+    "lunch": "standard",
+    "test preparation course": "completed",
     "math score": 70,
     "reading score": 75,
-    "writing score": 80
+    "writing score": 80,
 }
 
-# Convert to DataFrame
 student_df = pd.DataFrame([student])
 
-# Predict
-prediction = model.predict(student_df)
+for column, encoder in encoders.items():
+    if column != "result":
+        student_df[column] = encoder.transform(student_df[column])
 
-# Display result
-if prediction[0] == 1:
-    print("Prediction: Pass")
-else:
-    print("Prediction: Fail")
+prediction = model.predict(student_df)
+result = encoders["result"].inverse_transform(prediction)[0]
+
+print(f"Prediction: {result}")
